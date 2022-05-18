@@ -1,0 +1,30 @@
+{
+  "components": [
+    {
+      "key": "textfield4",
+      "label": "Text Field",
+      "type": "textfield",
+      "validate": {
+        "required": true
+      },
+      "id": "Field_1e7be0m"
+    },
+    {
+      "label": "Text Field 2",
+      "type": "textfield",
+      "id": "Field_126n03k",
+      "key": "field_0yzvv10",
+      "disabled": false,
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_01pxnld",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "schemaVersion": 4
+}

@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "key": "nameField",
+      "label": "Name",
+      "type": "textfield",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "id": "Field_1p3tig9"
+    },
+    {
+      "label": "Description",
+      "type": "textfield",
+      "id": "Field_03ypu2r",
+      "key": "descriptionField",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "regularExpressionPattern": "10000"
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_1msh3pf",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "schemaVersion": 4
+}

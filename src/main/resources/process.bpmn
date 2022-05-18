@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+  <bpmn:collaboration id="mail">
+    <bpmn:participant id="Participant_02fv8vg" processRef="test-tedcom-conf-process" />
+    <bpmn:participant id="Participant_0aykw5q" processRef="Process_14knrvt" />
+    <bpmn:messageFlow id="Flow_0w7nkiu" sourceRef="Activity_05egbj6" targetRef="Event_0ndp05p" />
+  </bpmn:collaboration>
+  <bpmn:process id="test-tedcom-conf-process" name="ted.com" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_0tpj94g">
+      <bpmn:lane id="Lane_0a501qb">
+        <bpmn:flowNodeRef>say-hello</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1xythsk</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_05egbj6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0ghnin9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1hsrmw4</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0rlsft1">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1ejgh8s</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_10ndvfl</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1pn4mfl</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:sequenceFlow id="Flow_18we2z5" sourceRef="Activity_1xythsk" targetRef="Event_1pn4mfl" />
+    <bpmn:sequenceFlow id="Flow_1vt5d51" sourceRef="Activity_10ndvfl" targetRef="Activity_1xythsk" />
+    <bpmn:sequenceFlow id="Flow_0g810z5" sourceRef="Activity_1ejgh8s" targetRef="Activity_10ndvfl" />
+    <bpmn:sequenceFlow id="Flow_0wsw1fk" sourceRef="say-hello" targetRef="Activity_1ejgh8s" />
+    <bpmn:transaction id="Activity_1xythsk">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1vt5d51</bpmn:incoming>
+      <bpmn:outgoing>Flow_18we2z5</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0rpnm0f">
+        <bpmn:targetRef>DataObjectReference_0b0yw2n</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+      <bpmn:startEvent id="Event_0rlj6zg" name="conference data ready">
+        <bpmn:outgoing>Flow_0on96ig</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:task id="Activity_1b9o0cc" name="validate">
+        <bpmn:extensionElements />
+        <bpmn:incoming>Flow_0on96ig</bpmn:incoming>
+        <bpmn:outgoing>Flow_0zofre2</bpmn:outgoing>
+        <bpmn:property id="Property_0pwifug" name="__targetRef_placeholder" />
+        <bpmn:dataInputAssociation id="DataInputAssociation_13bvsfi">
+          <bpmn:sourceRef>DataStoreReference_172ilvl</bpmn:sourceRef>
+          <bpmn:targetRef>Property_0pwifug</bpmn:targetRef>
+        </bpmn:dataInputAssociation>
+      </bpmn:task>
+      <bpmn:sequenceFlow id="Flow_0on96ig" sourceRef="Event_0rlj6zg" targetRef="Activity_1b9o0cc" />
+      <bpmn:dataStoreReference id="DataStoreReference_172ilvl" />
+      <bpmn:exclusiveGateway id="Gateway_1n1eyuy" name="is validated">
+        <bpmn:incoming>Flow_0zofre2</bpmn:incoming>
+        <bpmn:outgoing>Flow_12ittse</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0zofre2" sourceRef="Activity_1b9o0cc" targetRef="Gateway_1n1eyuy" />
+      <bpmn:task id="Activity_0tr0jbb" name="create conference">
+        <bpmn:incoming>Flow_12ittse</bpmn:incoming>
+        <bpmn:outgoing>Flow_1o9a3sy</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:sequenceFlow id="Flow_12ittse" name="yes" sourceRef="Gateway_1n1eyuy" targetRef="Activity_0tr0jbb" />
+      <bpmn:dataStoreReference id="DataStoreReference_0vadban" />
+      <bpmn:task id="Activity_1ox6402" name="sabe conference">
+        <bpmn:incoming>Flow_1o9a3sy</bpmn:incoming>
+        <bpmn:dataOutputAssociation id="DataOutputAssociation_1i3n3ql">
+          <bpmn:targetRef>DataStoreReference_0vadban</bpmn:targetRef>
+        </bpmn:dataOutputAssociation>
+      </bpmn:task>
+      <bpmn:sequenceFlow id="Flow_1o9a3sy" sourceRef="Activity_0tr0jbb" targetRef="Activity_1ox6402" />
+    </bpmn:transaction>
+    <bpmn:endEvent id="Event_1pn4mfl">
+      <bpmn:incoming>Flow_18we2z5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:dataObjectReference id="DataObjectReference_0b0yw2n" name="Conference data" dataObjectRef="DataObject_1q0bokz" />
+    <bpmn:dataObject id="DataObject_1q0bokz" />
+    <bpmn:userTask id="Activity_10ndvfl" name="Create options tree">
+      <bpmn:incoming>Flow_0g810z5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vt5d51</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1i2gffo">
+        <bpmn:targetRef>DataObjectReference_0b0yw2n</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:dataObjectReference id="DataObjectReference_00d0nj9" name="Reserved time list" dataObjectRef="DataObject_04hpnit" />
+    <bpmn:dataObject id="DataObject_04hpnit" />
+    <bpmn:userTask id="Activity_1ejgh8s" name="Fill common conference data" camunda:formKey="camunda-forms:/forms/form_1.form">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0wsw1fk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0g810z5</bpmn:outgoing>
+      <bpmn:property id="Property_1w3mjbo" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_04gu87c">
+        <bpmn:sourceRef>DataObjectReference_00d0nj9</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1w3mjbo</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:dataObjectReference id="DataObjectReference_0v9wx24" name="Reserved time list" dataObjectRef="DataObject_1sy3rn9" />
+    <bpmn:dataObject id="DataObject_1sy3rn9" />
+    <bpmn:startEvent id="StartEvent_1" name="Wants to create a new conference fot TED.COM">
+      <bpmn:outgoing>Flow_0739xwx</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_1qemtwh" />
+    <bpmn:serviceTask id="say-hello" name="Get reserved time" camunda:delegateExpression="#{getReservedTime}">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_0wsw1fk</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0xmwmxu">
+        <bpmn:targetRef>DataStoreReference_1qemtwh</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1aslr23">
+        <bpmn:targetRef>DataObjectReference_0v9wx24</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0739xwx" sourceRef="StartEvent_1" targetRef="Activity_05egbj6" />
+    <bpmn:sendTask id="Activity_05egbj6" name="send" camunda:delegateExpression="#{sendTask}">
+      <bpmn:incoming>Flow_0739xwx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qyy87y</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_0qyy87y" sourceRef="Activity_05egbj6" targetRef="Activity_0ghnin9" />
+    <bpmn:userTask id="Activity_0ghnin9" name="lya">
+      <bpmn:incoming>Flow_0qyy87y</bpmn:incoming>
+      <bpmn:outgoing>Flow_12pp8nf</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1hsrmw4">
+      <bpmn:incoming>Flow_12pp8nf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_12pp8nf" sourceRef="Activity_0ghnin9" targetRef="Event_1hsrmw4" />
+  </bpmn:process>
+  <bpmn:error id="Error_06mdv07" name="Error_3pcrmnl" />
+  <bpmn:message id="Message_301ri8k" />
+  <bpmn:message id="Message_19suhet" />
+  <bpmn:message id="Message_1s3bdk2" name="StartMessage" />
+  <bpmn:message id="Message_1uh491a" />
+  <bpmn:process id="Process_14knrvt" isExecutable="true">
+    <bpmn:endEvent id="Event_1kzvl9p">
+      <bpmn:incoming>Flow_0e7aa17</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="Event_0ndp05p">
+      <bpmn:outgoing>Flow_19msnwg</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_11lp5w9" messageRef="Message_1s3bdk2" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_0bwz25y" name="УРАА">
+      <bpmn:incoming>Flow_19msnwg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0e7aa17</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_19msnwg" sourceRef="Event_0ndp05p" targetRef="Activity_0bwz25y" />
+    <bpmn:sequenceFlow id="Flow_0e7aa17" sourceRef="Activity_0bwz25y" targetRef="Event_1kzvl9p" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="mail">
+      <bpmndi:BPMNShape id="Participant_02fv8vg_di" bpmnElement="Participant_02fv8vg" isHorizontal="true">
+        <dc:Bounds x="160" y="57" width="1660" height="593" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0rlsft1_di" bpmnElement="Lane_0rlsft1" isHorizontal="true">
+        <dc:Bounds x="190" y="57" width="1630" height="193" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0a501qb_di" bpmnElement="Lane_0a501qb" isHorizontal="true">
+        <dc:Bounds x="190" y="250" width="1630" height="400" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_12pp8nf_di" bpmnElement="Flow_12pp8nf">
+        <di:waypoint x="470" y="550" />
+        <di:waypoint x="532" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qyy87y_di" bpmnElement="Flow_0qyy87y">
+        <di:waypoint x="317" y="550" />
+        <di:waypoint x="370" y="550" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0739xwx_di" bpmnElement="Flow_0739xwx">
+        <di:waypoint x="267" y="168" />
+        <di:waypoint x="267" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wsw1fk_di" bpmnElement="Flow_0wsw1fk">
+        <di:waypoint x="430" y="320" />
+        <di:waypoint x="510" y="320" />
+        <di:waypoint x="510" y="120" />
+        <di:waypoint x="560" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0g810z5_di" bpmnElement="Flow_0g810z5">
+        <di:waypoint x="660" y="120" />
+        <di:waypoint x="790" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vt5d51_di" bpmnElement="Flow_1vt5d51">
+        <di:waypoint x="840" y="160" />
+        <di:waypoint x="840" y="292" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18we2z5_di" bpmnElement="Flow_18we2z5">
+        <di:waypoint x="1530" y="441" />
+        <di:waypoint x="1581" y="441" />
+        <di:waypoint x="1581" y="140" />
+        <di:waypoint x="1652" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_19pl75u_di" bpmnElement="Activity_1xythsk" isExpanded="true">
+        <dc:Bounds x="790" y="292" width="740" height="298" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1o9a3sy_di" bpmnElement="Flow_1o9a3sy">
+        <di:waypoint x="1290" y="370" />
+        <di:waypoint x="1330" y="370" />
+        <di:waypoint x="1330" y="480" />
+        <di:waypoint x="1380" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12ittse_di" bpmnElement="Flow_12ittse">
+        <di:waypoint x="1105" y="370" />
+        <di:waypoint x="1190" y="370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1139" y="352" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zofre2_di" bpmnElement="Flow_0zofre2">
+        <di:waypoint x="1000" y="370" />
+        <di:waypoint x="1055" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0on96ig_di" bpmnElement="Flow_0on96ig">
+        <di:waypoint x="850" y="370" />
+        <di:waypoint x="900" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0rlj6zg_di" bpmnElement="Event_0rlj6zg">
+        <dc:Bounds x="813.6666666666666" y="352" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="793" y="395" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1b9o0cc_di" bpmnElement="Activity_1b9o0cc">
+        <dc:Bounds x="900" y="330" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_172ilvl_di" bpmnElement="DataStoreReference_172ilvl">
+        <dc:Bounds x="835" y="445" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1n1eyuy_di" bpmnElement="Gateway_1n1eyuy" isMarkerVisible="true">
+        <dc:Bounds x="1055" y="345" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1052" y="315" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tr0jbb_di" bpmnElement="Activity_0tr0jbb">
+        <dc:Bounds x="1190" y="330" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0vadban_di" bpmnElement="DataStoreReference_0vadban">
+        <dc:Bounds x="1215" y="505" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ox6402_di" bpmnElement="Activity_1ox6402">
+        <dc:Bounds x="1380" y="440" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1pn4mfl_di" bpmnElement="Event_1pn4mfl">
+        <dc:Bounds x="1652" y="122" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0qt915r" bpmnElement="DataObjectReference_0b0yw2n">
+        <dc:Bounds x="912" y="175" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="889" y="151" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jprwml_di" bpmnElement="Activity_10ndvfl">
+        <dc:Bounds x="790" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_00d0nj9_di" bpmnElement="DataObjectReference_00d0nj9">
+        <dc:Bounds x="692" y="165" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="666" y="222" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ritkmr_di" bpmnElement="Activity_1ejgh8s">
+        <dc:Bounds x="560" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0v9wx24_di" bpmnElement="DataObjectReference_0v9wx24">
+        <dc:Bounds x="362" y="125" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="336" y="95" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="249" y="132" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="223" y="69" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1qemtwh_di" bpmnElement="DataStoreReference_1qemtwh">
+        <dc:Bounds x="355" y="405" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1nyn23r_di" bpmnElement="say-hello">
+        <dc:Bounds x="330" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sbr4hp_di" bpmnElement="Activity_05egbj6">
+        <dc:Bounds x="217" y="510" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1n8puyk_di" bpmnElement="Activity_0ghnin9">
+        <dc:Bounds x="370" y="510" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hsrmw4_di" bpmnElement="Event_1hsrmw4">
+        <dc:Bounds x="532" y="532" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0ctyev7" bpmnElement="Participant_0aykw5q" isHorizontal="true">
+        <dc:Bounds x="160" y="710" width="500" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_19msnwg_di" bpmnElement="Flow_19msnwg">
+        <di:waypoint x="268" y="800" />
+        <di:waypoint x="340" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e7aa17_di" bpmnElement="Flow_0e7aa17">
+        <di:waypoint x="440" y="800" />
+        <di:waypoint x="592" y="800" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1kzvl9p_di" bpmnElement="Event_1kzvl9p">
+        <dc:Bounds x="592" y="782" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1u96vak_di" bpmnElement="Event_0ndp05p">
+        <dc:Bounds x="232" y="782" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kn5buf_di" bpmnElement="Activity_0bwz25y">
+        <dc:Bounds x="340" y="760" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataInputAssociation_13bvsfi_di" bpmnElement="DataInputAssociation_13bvsfi">
+        <di:waypoint x="885" y="470" />
+        <di:waypoint x="950" y="470" />
+        <di:waypoint x="950" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1i3n3ql_di" bpmnElement="DataOutputAssociation_1i3n3ql">
+        <di:waypoint x="1430" y="520" />
+        <di:waypoint x="1430" y="530" />
+        <di:waypoint x="1265" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0rpnm0f_di" bpmnElement="DataOutputAssociation_0rpnm0f">
+        <di:waypoint x="932" y="292" />
+        <di:waypoint x="932" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1i2gffo_di" bpmnElement="DataOutputAssociation_1i2gffo">
+        <di:waypoint x="860" y="160" />
+        <di:waypoint x="860" y="200" />
+        <di:waypoint x="912" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_04gu87c_di" bpmnElement="DataInputAssociation_04gu87c">
+        <di:waypoint x="692" y="190" />
+        <di:waypoint x="610" y="190" />
+        <di:waypoint x="610" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0xmwmxu_di" bpmnElement="DataOutputAssociation_0xmwmxu">
+        <di:waypoint x="380" y="360" />
+        <di:waypoint x="380" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1aslr23_di" bpmnElement="DataOutputAssociation_1aslr23">
+        <di:waypoint x="380" y="280" />
+        <di:waypoint x="378" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0w7nkiu_di" bpmnElement="Flow_0w7nkiu">
+        <di:waypoint x="250" y="590" />
+        <di:waypoint x="250" y="782" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
