@@ -1,30 +1,49 @@
 {
   "components": [
     {
-      "key": "nameField",
+      "text": "# Fill conference data",
+      "type": "text",
+      "id": "Field_0gripue"
+    },
+    {
       "label": "Name",
       "type": "textfield",
+      "id": "Field_0xp2f8f",
+      "key": "field_1aqsy9b",
       "validate": {
-        "required": true,
-        "minLength": 1,
-        "maxLength": 100
-      },
-      "id": "Field_1p3tig9"
+        "required": true
+      }
     },
     {
       "label": "Description",
       "type": "textfield",
-      "id": "Field_03ypu2r",
-      "key": "descriptionField",
+      "id": "Field_1dg4cdd",
+      "key": "field_1bgfr26",
       "validate": {
-        "required": true,
-        "minLength": 1,
-        "regularExpressionPattern": "10000"
+        "required": true
+      }
+    },
+    {
+      "label": "Start time",
+      "type": "textfield",
+      "id": "Field_1stc57x",
+      "key": "field_1595exj",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "End time",
+      "type": "textfield",
+      "id": "Field_0w6defl",
+      "key": "field_0p30n1t",
+      "validate": {
+        "required": true
       }
     }
   ],
   "type": "default",
-  "id": "Form_1msh3pf",
+  "id": "Form_0zlhwe1",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.0.0"

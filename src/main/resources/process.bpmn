@@ -15,10 +15,10 @@
         <bpmn:flowNodeRef>Event_1hsrmw4</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0rlsft1">
-        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1ejgh8s</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_10ndvfl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1pn4mfl</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_18we2z5" sourceRef="Activity_1xythsk" targetRef="Event_1pn4mfl" />
@@ -92,12 +92,10 @@
     </bpmn:userTask>
     <bpmn:dataObjectReference id="DataObjectReference_0v9wx24" name="Reserved time list" dataObjectRef="DataObject_1sy3rn9" />
     <bpmn:dataObject id="DataObject_1sy3rn9" />
-    <bpmn:startEvent id="StartEvent_1" name="Wants to create a new conference fot TED.COM">
-      <bpmn:outgoing>Flow_0739xwx</bpmn:outgoing>
-    </bpmn:startEvent>
     <bpmn:dataStoreReference id="DataStoreReference_1qemtwh" />
     <bpmn:serviceTask id="say-hello" name="Get reserved time" camunda:delegateExpression="#{getReservedTime}">
       <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1bbirkw</bpmn:incoming>
       <bpmn:outgoing>Flow_0wsw1fk</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0xmwmxu">
         <bpmn:targetRef>DataStoreReference_1qemtwh</bpmn:targetRef>
@@ -106,9 +104,7 @@
         <bpmn:targetRef>DataObjectReference_0v9wx24</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0739xwx" sourceRef="StartEvent_1" targetRef="Activity_05egbj6" />
     <bpmn:sendTask id="Activity_05egbj6" name="send" camunda:delegateExpression="#{sendTask}">
-      <bpmn:incoming>Flow_0739xwx</bpmn:incoming>
       <bpmn:outgoing>Flow_0qyy87y</bpmn:outgoing>
     </bpmn:sendTask>
     <bpmn:sequenceFlow id="Flow_0qyy87y" sourceRef="Activity_05egbj6" targetRef="Activity_0ghnin9" />
@@ -120,6 +116,10 @@
       <bpmn:incoming>Flow_12pp8nf</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_12pp8nf" sourceRef="Activity_0ghnin9" targetRef="Event_1hsrmw4" />
+    <bpmn:startEvent id="StartEvent_1" name="Wants to create a new conference fot TED.COM">
+      <bpmn:outgoing>Flow_1bbirkw</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1bbirkw" sourceRef="StartEvent_1" targetRef="say-hello" />
   </bpmn:process>
   <bpmn:error id="Error_06mdv07" name="Error_3pcrmnl" />
   <bpmn:message id="Message_301ri8k" />
@@ -160,10 +160,6 @@
         <di:waypoint x="317" y="550" />
         <di:waypoint x="370" y="550" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0739xwx_di" bpmnElement="Flow_0739xwx">
-        <di:waypoint x="267" y="168" />
-        <di:waypoint x="267" y="510" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0wsw1fk_di" bpmnElement="Flow_0wsw1fk">
         <di:waypoint x="430" y="320" />
         <di:waypoint x="510" y="320" />
@@ -184,6 +180,18 @@
         <di:waypoint x="1581" y="140" />
         <di:waypoint x="1652" y="140" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bbirkw_di" bpmnElement="Flow_1bbirkw">
+        <di:waypoint x="285" y="150" />
+        <di:waypoint x="308" y="150" />
+        <di:waypoint x="308" y="320" />
+        <di:waypoint x="330" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="249" y="132" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="223" y="69" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_19pl75u_di" bpmnElement="Activity_1xythsk" isExpanded="true">
         <dc:Bounds x="790" y="292" width="740" height="298" />
       </bpmndi:BPMNShape>
@@ -264,12 +272,6 @@
         <dc:Bounds x="362" y="125" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="336" y="95" width="89" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="249" y="132" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="223" y="69" width="87" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_1qemtwh_di" bpmnElement="DataStoreReference_1qemtwh">
