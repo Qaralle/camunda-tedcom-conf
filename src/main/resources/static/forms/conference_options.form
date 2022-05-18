@@ -1,0 +1,67 @@
+{
+  "components": [
+    {
+      "text": "## Profile",
+      "type": "text",
+      "id": "Field_1nlg7if"
+    },
+    {
+      "label": "Name",
+      "type": "textfield",
+      "id": "Field_1dvpgij",
+      "key": "profile_name",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Price",
+      "type": "number",
+      "id": "Field_0sxkylt",
+      "key": "profile_price",
+      "validate": {
+        "required": true,
+        "min": 0
+      }
+    },
+    {
+      "text": "##Options",
+      "type": "text",
+      "id": "Field_1cf90gh"
+    },
+    {
+      "label": "option 1",
+      "type": "textfield",
+      "id": "Field_1jt7ds8",
+      "key": "profile_option_1",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "option 2",
+      "type": "textfield",
+      "id": "Field_1e0lnl2",
+      "key": "profile_option_2"
+    },
+    {
+      "label": "option 3",
+      "type": "textfield",
+      "id": "Field_0perd2p",
+      "key": "profile_option_3"
+    },
+    {
+      "label": "option 4",
+      "type": "textfield",
+      "id": "Field_00atise",
+      "key": "profile_option_4"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0zlhwe1",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "schemaVersion": 4
+}
