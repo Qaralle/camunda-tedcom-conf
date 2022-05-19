@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
@@ -11,7 +12,8 @@ import java.sql.Timestamp;
 @Table
 @NoArgsConstructor
 @Data
-public class Conference {
+public class Conference implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -34,6 +36,4 @@ public class Conference {
         this.finish=finish;
         this.place=place;
     }
-
-
 }

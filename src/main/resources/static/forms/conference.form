@@ -20,7 +20,7 @@
       "id": "Field_1dg4cdd",
       "key": "conference_description",
       "validate": {
-        "required": true
+        "required": false
       }
     },
     {
@@ -29,7 +29,8 @@
       "id": "Field_1stc57x",
       "key": "conference_start_time",
       "validate": {
-        "required": true
+        "required": true,
+        "regularExpressionPattern": "matches(?, [0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{1,})*)"
       }
     },
     {
@@ -38,7 +39,8 @@
       "id": "Field_0w6defl",
       "key": "conference_end_time",
       "validate": {
-        "required": true
+        "required": true,
+        "regularExpressionPattern": "matches(?,[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{1,})*)"
       }
     },
     {

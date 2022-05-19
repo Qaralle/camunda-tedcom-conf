@@ -13,6 +13,8 @@ public interface SpeakerRepository extends JpaRepository<Speaker, Long> {
     @Query(value = "SELECT s FROM Speaker s")
     List<Speaker> getAllSpeakers();
 
+    Speaker getSpeakerByName(String names);
+
     @Query(value = "SELECT s FROM Participation p join Speaker s on p.speaker = s where p.conference = :conference and p.isAccepted = true")
     List<Speaker> getAllSpeakersByConference(@Param("conference") Conference conference);
 

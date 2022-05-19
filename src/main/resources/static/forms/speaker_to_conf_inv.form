@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "text": "## List speakers",
+      "type": "text",
+      "id": "Field_0gripue"
+    },
+    {
+      "label": "speakers",
+      "type": "textfield",
+      "id": "Field_0s5sy74",
+      "key": "speakers",
+      "description": "speaker_name1, speaker_name2"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0zdadad",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "schemaVersion": 4
+}

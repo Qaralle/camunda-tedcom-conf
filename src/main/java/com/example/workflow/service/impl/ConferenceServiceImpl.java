@@ -10,6 +10,7 @@ import com.example.workflow.service.ProfileService;
 import com.example.workflow.util.TimePair;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
@@ -35,29 +36,16 @@ public class ConferenceServiceImpl implements ConferenceService {
     @SneakyThrows
     @Transactional(timeout = 10000)
     public Conference createConference(String name, String description, Timestamp start, Timestamp finish, List<Profile> profiles, Place place) throws IllegalArgumentException{
-        Conference conference;
+        Conference conference = new Conference(name,description,start,finish,place);
 
-        if (name.isEmpty()){
-            throw new IllegalArgumentException("Нельзя создать конференцию без имени");
-        } else if (validateD(start,finish)) {
-            if(!canBeConducted(start, finish, place)) {
-                throw new IllegalArgumentException("Дата или время организации в данном месте занята");
+        validateConference(conference);
+
+        if(profiles.size() == 0) throw new IllegalArgumentException("Отсутствует информация о профилях");
+        profiles.forEach((i)->{
+            if(!profileService.validate(i)){
+                throw new IllegalArgumentException("Профиль не прошел валидацию");
             }
-        }else {
-            throw new IllegalArgumentException("Дата и время не прошла валидацию");
-        }
-        if (!placeService.validate(place)){
-            throw new IllegalArgumentException("Место не прошло валидацию");
-        }else {
-            if(profiles.size() == 0) throw new IllegalArgumentException("Отсутствует информация о профилях");
-            profiles.forEach((i)->{
-                if(!profileService.validate(i)){
-                    throw new IllegalArgumentException("Профиль не прошел валидацию");
-                }
-            });
-        }
-
-        conference = new Conference(name,description,start,finish,place);
+        });
 
         save(conference, profiles);
 
@@ -66,19 +54,37 @@ public class ConferenceServiceImpl implements ConferenceService {
 
 
     @SneakyThrows
-    @Transactional
-    public void save(Conference conference,List<Profile> profiles) {
-        conferenceRepository.save(conference);
+    public Conference save(Conference conference,List<Profile> profiles) {
         profiles.forEach(i->{
             i.setConference(conference);
             profileService.save(i);
         });
+        Conference resConf = conferenceRepository.save(conference);
+        return resConf;
     }
 
     @Override
     public Conference addSpeakers(Conference conference, List<Speaker> speakers) {
         speakers.forEach((i)-> participationRepository.save(new Participation(i, conference)));
         return conference;
+    }
+
+    @Override
+    public boolean validateConference(Conference conference) {
+        if (conference.getName().isEmpty()){
+            throw new IllegalArgumentException("Noway to create conference without name!");
+        } else if (validateD(conference.getStart(), conference.getFinish())) {
+            if(!canBeConducted(conference.getStart(), conference.getFinish(), conference.getPlace())) {
+                throw new IllegalArgumentException("Chosen date or time has already been reserved for current place!");
+            }
+        }else {
+            throw new IllegalArgumentException("The logical sequence of dates is broken!");
+        }
+        if (!placeService.validate(conference.getPlace())){
+            throw new IllegalArgumentException("Place not valid");
+        }
+
+        return true;
     }
 
     @Override

@@ -26,7 +26,6 @@ public class InvitationConfirmationServiceImpl implements InvitationConfirmation
     }
 
     @Override
-    @Transactional(rollbackFor = {MessagingException.class, SQLException.class})
     public void acceptInvitation(Long hash) throws MessagingException{
         Invitation invitation = invitationRepository.getFirstByHash(hash);
         invitation.getParticipation().setIsAccepted(true);
@@ -47,7 +46,6 @@ public class InvitationConfirmationServiceImpl implements InvitationConfirmation
     }
 
     @Override
-    @Transactional(readOnly = true)
     public boolean isInvitationAccepted(Long hash) {
         return invitationRepository.isInvitationAccepted(hash);
     }

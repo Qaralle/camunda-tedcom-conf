@@ -4,12 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
 @Table
 @NoArgsConstructor
-public class Invitation {
+public class Invitation implements Serializable {
 
     @Id
     @Column(name = "participation_id")

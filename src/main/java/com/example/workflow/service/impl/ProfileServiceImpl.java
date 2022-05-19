@@ -47,7 +47,6 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
     public void save(Profile profile) {
         repository.save(profile);
     }

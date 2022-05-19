@@ -16,12 +16,12 @@
     },
     {
       "label": "Price",
-      "type": "number",
-      "id": "Field_0sxkylt",
+      "type": "textfield",
+      "id": "Field_1xq7c1l",
       "key": "profile_price",
       "validate": {
         "required": true,
-        "min": 0
+        "regularExpressionPattern": "matches(?,[\\d]{1,}(\\.[\\d]{1,}))"
       }
     },
     {
@@ -35,26 +35,36 @@
       "id": "Field_1jt7ds8",
       "key": "profile_option_1",
       "validate": {
-        "required": true
+        "required": true,
+        "regularExpressionPattern": "matches(?,[^\\d])"
       }
     },
     {
       "label": "option 2",
       "type": "textfield",
       "id": "Field_1e0lnl2",
-      "key": "profile_option_2"
+      "key": "profile_option_2",
+      "validate": {
+        "regularExpressionPattern": "matches(?,[^\\d])"
+      }
     },
     {
       "label": "option 3",
       "type": "textfield",
       "id": "Field_0perd2p",
-      "key": "profile_option_3"
+      "key": "profile_option_3",
+      "validate": {
+        "regularExpressionPattern": "matches(?,[^\\d])"
+      }
     },
     {
       "label": "option 4",
       "type": "textfield",
       "id": "Field_00atise",
-      "key": "profile_option_4"
+      "key": "profile_option_4",
+      "validate": {
+        "regularExpressionPattern": "matches(?,[^\\d])"
+      }
     }
   ],
   "type": "default",

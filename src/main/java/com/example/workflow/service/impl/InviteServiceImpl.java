@@ -72,9 +72,12 @@ public class InviteServiceImpl implements InviteService {
     }
 
 
+    @Override
+    public Invitation save(Invitation invitation) {
+        return invitationRepository.save(invitation);
+    }
 
     @Override
-    @Transactional
     public Invitation generateInvite(Participation participation) {
         Long speakerId = participation.getSpeaker().getId();
         Long conferenceId = participation.getConference().getId();
@@ -91,7 +94,6 @@ public class InviteServiceImpl implements InviteService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public boolean isInvited(Long speakerId, Long conferenceId) {
         Invitation invitation = invitationRepository.getInvitationByParticipation_Conference_IdAndParticipation_Speaker_Id(conferenceId, speakerId);
         if(invitation != null) {
@@ -103,7 +105,6 @@ public class InviteServiceImpl implements InviteService {
 
 
     @Override
-    @Transactional
     public boolean isInvited(Long hash) {
         Invitation invitation = invitationRepository.getFirstByHash(hash);
         if(invitation != null) {
@@ -111,4 +112,5 @@ public class InviteServiceImpl implements InviteService {
         }
         return false;
     }
+
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table
 @Data
-public class Profile {
+public class Profile implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,13 +28,12 @@ public class Profile {
     @JoinTable(name = "profile_options",
     joinColumns = @JoinColumn(name = "profile_id"),
     inverseJoinColumns = @JoinColumn(name = "option_id"))
-    private List<Option> options = new ArrayList<>();
+    private List<Option> options;
 
     public Profile(String name, Double price, List<Option> options){
         this.name=name;
         this.price=price;
         this.options=options;
     }
-
 
 }

@@ -1,28 +1,33 @@
 package com.example.workflow.delegates;
 
-import com.example.workflow.dto.MailMessage;
+import com.example.workflow.model.Invitation;
+import com.example.workflow.service.MailService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.inject.Named;
+import java.util.List;
 
 @Named("sendTask")
 public class SendTaskDelegate implements JavaDelegate {
-    private final KafkaTemplate<String, MailMessage> kafkaTemplate;
-
-    public SendTaskDelegate(KafkaTemplate<String, MailMessage> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    public SendTaskDelegate(MailService mailService) {
+        this.mailService = mailService;
     }
 
+    private final MailService mailService;
+
+
+    @Override
     public void execute(DelegateExecution execution) throws Exception {
-        MailMessage msg = new MailMessage();
+        List<Invitation> invitationList = ((List<Invitation>) execution.getVariable("invitationList"));
 
-        msg.setEmail("email");
-        msg.setText("text");
-        msg.setHTML(false);
-
-        kafkaTemplate.send("mail-topic", msg);
+        invitationList.forEach((i)->{
+            String text = "<p><span>Радистка Кэт вела Штирлица через темный двор.</span></p>\n" +
+                    "<p><span>\"Не споткнись об пса,\" - сказала Кэт.</span></p>\n" +
+                    "<p><span>Штирлиц споткнулся, раздался кошачий визг.</span></p>\n" +
+                    "<p><span>\"<a href = 'http://localhost:8083/api/app/confirmInvitation/" + i.getHash() + "'>Об манула</a>\", - подумал Штирлиц</span></p>";
+            mailService.sendMail(i.getParticipation().getSpeaker().getEmail(), text, true);
+        });
     }
 
 }

@@ -13,6 +13,5 @@ public interface InvitationRepository extends JpaRepository<Invitation, Long> {
     Invitation getFirstByHash(Long hash);
 
     @Override
-    @Transactional
     <S extends Invitation> S save(S entity);
 }

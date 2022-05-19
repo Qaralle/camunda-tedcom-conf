@@ -34,7 +34,6 @@ public class SpeakerServiceImpl implements SpeakerService {
 
 
     @Override
-    @Transactional
     @SneakyThrows
     public Speaker createAndSaveSpeaker(String name, String email) throws IllegalArgumentException{
         try {
@@ -60,19 +59,18 @@ public class SpeakerServiceImpl implements SpeakerService {
     }
 
     @Override
-    public void submitSpeakersToConf(List<Speaker> speakers, Long conferenceId) {
+    public List<Participation> submitSpeakersToConf(List<Speaker> speakers, Long conferenceId) {
         Optional<Conference> conference = conferenceService.findById(conferenceId);
 
         if (!conference.isPresent())
-            throw new IllegalArgumentException("conference id not valid");
+            throw new IllegalArgumentException("Conference id not valid");
 
         List<Participation> participationList = new ArrayList<>();
         speakers.forEach(s -> participationList.add(new Participation(s, conference.get())));
-        participationRepository.saveAll(participationList);
+        return participationRepository.saveAll(participationList);
     }
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)
     public Participation submitSpeakerToConf(Speaker speaker, Long conferenceId) {
         Optional<Conference> conference = conferenceService.findById(conferenceId);
 

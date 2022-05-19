@@ -27,7 +27,6 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    @Scheduled(cron="0 07 19 * * *", zone="Europe/Moscow")
     public void eveningNotification() {
         List<Conference> upcomingConferences = conferenceService.getUpcomingConferences();
         Set<Speaker> mustBeNotified = new HashSet<>();
@@ -38,13 +37,13 @@ public class NotificationServiceImpl implements NotificationService {
 
 
     private void prepareListOfConference(Speaker speaker, List<Conference> conferences)  {
-//        StringBuilder msgText = new StringBuilder();
-//
-//        msgText.append("У вас есть предстоящие конференции на завтра:\n");
-//        conferences.forEach(c->msgText.append(conferenceService.conferenceToString(c)));
-//        msgText.append("Fuck you, "+speaker.getName());
-//
-//
-//        mailService.sendMail(speaker.getEmail(),msgText.toString());
+        StringBuilder msgText = new StringBuilder();
+
+        msgText.append("You have some upcoming conferences:\n");
+        conferences.forEach(c->msgText.append(conferenceService.conferenceToString(c)));
+        msgText.append("See you on conference, "+speaker.getName());
+
+
+        mailService.sendMail(speaker.getEmail(),msgText.toString());
     }
 }

@@ -14,4 +14,6 @@ public interface InviteService {
     Invitation generateInvite(Participation participation);
     boolean isInvited(Long speakerId, Long conferenceId);
     boolean isInvited(Long hash);
+
+    Invitation save(Invitation invitation);
 }

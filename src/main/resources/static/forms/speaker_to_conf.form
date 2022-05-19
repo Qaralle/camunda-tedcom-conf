@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "text": "## Invite speakers?",
+      "type": "text",
+      "id": "Field_0gripue"
+    },
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "label": "Select",
+      "type": "select",
+      "id": "Field_175ta2u",
+      "key": "invite_selector",
+      "defaultValue": "false"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0zdadad",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "schemaVersion": 4
+}

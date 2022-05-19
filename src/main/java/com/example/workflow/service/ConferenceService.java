@@ -21,4 +21,6 @@ public interface ConferenceService {
     List<TimePair> getReservedTime();
     String conferenceToString(Conference conference);
     List<Conference> getAcceptedConferencesBySpeaker(Speaker speaker);
+    Conference save(Conference conference, List<Profile> profiles);
+    boolean validateConference(Conference conference);
 }

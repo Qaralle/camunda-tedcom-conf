@@ -29,4 +29,10 @@ public class PlaceServiceImpl implements PlaceService {
         }
         return new Place(description);
     }
+
+    @Override
+    public Place save(Place place) {
+        return placeRepository.save(place);
+    }
+
 }
